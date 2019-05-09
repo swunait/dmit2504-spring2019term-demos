@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Guess My Number</string>
+    <string name="guess_prompt01_label">Guess a number</string>
+    <string name="guess_prompt02_label">between</string>
+    <string name="guess_prompt03_label">and</string>
+    <string name="ok_button">OK</string>
+    <string name="guess_result_label">Your last guess was </string>
+    <string name="guess_result_low_label">too low</string>
+    <string name="guess_result_high_label">too high</string>
+    <string name="guess_result_correct">correct</string>
+    <string name="guess_count_label">Number of guesses:</string>
+
+</resources>

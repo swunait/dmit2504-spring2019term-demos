@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GoogleVolleyDemo</string>
+    <string name="main_activity_message_hint">enter a message to send</string>
+    <string name="activity_main_send_button">Send Data</string>
+    <string name="menu_item_senddata">Send Data</string>
+    <string name="menu_view_data">View Data</string>
+</resources>

@@ -1,6 +1,9 @@
 package dmit2504.nait.ca;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,8 +25,9 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    SharedPreferences settings;
 
     public void sendData(View view) {
         // Find the views in the layout
@@ -84,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
+        settings.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -92,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         // Inflate the menu
         inflater.inflate(R.menu.options_menu, menu);
-        // Return true if tghe menu inflated OK
+        // Return true if the menu inflated OK
         return true;
     }
 
@@ -100,13 +107,27 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Get the id of the selected menu item
         switch (item.getItemId()) {
-            case R.id.menu_view_data:
+            case R.id.menu_view_data: {
                 // create an intent to start the ViewRemoteDataActivity
                 Intent intent = new Intent(this, ViewRemoteDataActivity.class);
                 startActivity(intent);
                 return true;
+            }
+            case R.id.menu_settings: {
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            }
             default:
                return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        View layout = findViewById(R.id.activity_main_layout);
+        String bgColor = settings.getString("main_bg_color_list","#660000");
+        layout.setBackgroundColor(Color.parseColor(bgColor));
+
     }
 }

@@ -10,4 +10,7 @@
         android:id="@+id/menu_view_data"
         android:icon="@android:drawable/ic_menu_gallery"
         android:title="@string/menu_view_data" />
+    <item
+        android:id="@+id/menu_settings"
+        android:title="@string/menu_settings" />
 </menu>

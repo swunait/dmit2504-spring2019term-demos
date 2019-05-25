@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">StatisticsCanadaApp</string>
+    <string name="activity_main_go_button">GO</string>
+</resources>

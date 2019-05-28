@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lesson 5.1</string>
+    <string name="main_activity_label">New Message</string>
+    <string name="main_activity_edittext_hint">enter a message</string>
+    <string name="main_activity_button_java_thread">Submit using a Java Thread</string>
+    <string name="main_activity_button_async_task">Submit using Async Task</string>
+    <string name="main_activity_button_intent_service">Submit using IntentService</string>
+
+</resources>

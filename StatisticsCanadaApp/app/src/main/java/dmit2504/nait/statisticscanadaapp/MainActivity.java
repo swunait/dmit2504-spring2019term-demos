@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeYear(View view) {
-        String selectedYear = mSpinner.getSelectedItem().toString();
+        final String selectedYear = mSpinner.getSelectedItem().toString();
         //Toast.makeText(this,"Year " + selectedYear, Toast.LENGTH_SHORT).show();
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                                 new DividerItemDecoration(MainActivity.this,
                                         DividerItemDecoration.VERTICAL));
                         for (int index = 0; index < response.length(); index++) {
+
                             try {
                                 JSONObject currentJsonObject = response.getJSONObject(index);
                                 KeyIndicator currentItem = new KeyIndicator();
@@ -72,7 +73,11 @@ public class MainActivity extends AppCompatActivity {
                                 currentItem.setType(currentJsonObject.getString("type"));
                                 currentItem.setUrl(currentJsonObject.getString("url"));
 
-                                dataAapter.addKeyIndicator(currentItem);
+                                String statYear = currentJsonObject.getString("date").substring(0,4);
+                                if (selectedYear.equalsIgnoreCase(statYear)) {
+                                    dataAapter.addKeyIndicator(currentItem);
+                                }
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(MainActivity.this,

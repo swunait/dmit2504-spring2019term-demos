@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WebsiteDatabaseHelper extends SQLiteOpenHelper {
 
     public WebsiteDatabaseHelper(Context context) {
@@ -31,6 +34,17 @@ public class WebsiteDatabaseHelper extends SQLiteOpenHelper {
         Log.i("WebsiteDatabaseHelper","newRowId = " + newRowId);
     }
 
+    public long addWebsite(Website newWebsite) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", newWebsite.name);
+        values.put("url", newWebsite.url);
+        long newRowId = db.insert("website_table",null,values);
+        Log.i("WebsiteDatabaseHelper","newRowId = " + newRowId);
+        newWebsite.id = (int) newRowId;
+        return newRowId;
+    }
+
     public Cursor retreiveAll() {
         String[] columns = {"_id","name","url"};
         String sortOrder = "name ASC";
@@ -44,6 +58,21 @@ public class WebsiteDatabaseHelper extends SQLiteOpenHelper {
                 sortOrder);
         return cursor;
     }
+
+    public List<Website> retrieveAllWebsites() {
+        List<Website> websites = new ArrayList<>();
+        Cursor websitesCursor = retreiveAll();
+        while (websitesCursor.moveToNext()) {
+            Website currentWebsite = new Website();
+            currentWebsite.id = websitesCursor.getInt(0);
+            currentWebsite.name = websitesCursor.getString(1);
+            currentWebsite.url = websitesCursor.getString(2);
+            websites.add(currentWebsite);
+        }
+
+        return websites;
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

@@ -42,8 +42,23 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:onClick="saveWebsite"
         android:text="@string/activity_website_entry_save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.306"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_website_entry_url" />
+
+    <Button
+        android:id="@+id/activity_website_entry_cancel"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="cancel"
+        android:text="@string/activity_website_entry_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/activity_website_entry_save"
         app:layout_constraintTop_toBottomOf="@+id/activity_website_entry_url" />
 </android.support.constraint.ConstraintLayout>

@@ -3,4 +3,6 @@
     <string name="activity_main_login_button_text">Login</string>
     <string name="activity_main_remember_me_text">Remember Me</string>
     <string name="activity_website_entry_save">Save</string>
+    <string name="activity_website_list_menu_new_website">New Website</string>
+    <string name="activity_website_entry_cancel">Cancel</string>
 </resources>

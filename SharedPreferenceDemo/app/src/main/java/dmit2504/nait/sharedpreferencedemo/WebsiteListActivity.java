@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -35,11 +36,17 @@ public class WebsiteListActivity extends AppCompatActivity implements AdapterVie
         // Define mappings from columns to the view
         String[] fromFields = {"name","url"};
         int[] toViews = {R.id.website_list_item_name, R.id.website_list_item_url};
+//        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
+//                R.layout.website_list_item,
+//                cursor,
+//                fromFields,
+//                toViews);
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
                 R.layout.website_list_item,
                 cursor,
                 fromFields,
-                toViews);
+                toViews,
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         mWebsiteListView.setAdapter(cursorAdapter);
 
     }

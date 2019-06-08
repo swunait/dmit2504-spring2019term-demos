@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SimpleBroadcastSender</string>
+    <string name="activity_main_button">Broadcast Message</string>
+    <string name="activity_main_edittext_hint">enter a message to broadcast</string>
+</resources>

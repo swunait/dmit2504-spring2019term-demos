@@ -3,9 +3,16 @@ package dmit2504.nait.simplenewsreader;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,58 +21,51 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
-    private static final String API_KEY = "yourAPIKEY";
+    private static final String API_KEY = "YOUR_API_KEY";
     private TextView mTextView;
+    private RecyclerView mRecyclerView;
+    private NewsArticleAdapter mRecylerViewAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextView = findViewById(R.id.activity_main_textview);
+        mRecyclerView = findViewById(R.id.activity_main_recyclerView);
+        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(decoration);
 
         String newsUrl = "https://newsapi.org/v2/top-headlines?country=ca&apiKey=" + API_KEY;
-        // Make a request using HttpURLConnection to the newsUrl and display the response in the textview
-
-//        try {
-//            String responseString = new NetworkAPI().getUrlResponseString(newsUrl);
-//            TextView textView = findViewById(R.id.activity_main_textview);
-//            textView.setText(responseString);
-//        } catch (IOException e) {
-//            Log.e("MainActivity", e.getMessage());
-//            Toast.makeText(this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//            e.printStackTrace();
-//        }
-//        new FetchNewsTask().execute(newsUrl);
-        TextView textView = findViewById(R.id.activity_main_textview);
         new FetchNewsTask().execute(newsUrl);
     }
 
-    private class FetchNewsTask extends AsyncTask<String, Double, String> {
+
+
+    private class FetchNewsTask extends AsyncTask<String, Double, ArticleResponse> {
 
         @Override
-        protected String doInBackground(String... urls) {
+        protected ArticleResponse doInBackground(String... urls) {
             try {
                 String responseString = new NetworkAPI().getUrlResponseString(urls[0]);
-                JSONObject json = new JSONObject(responseString);
-                int totalResults = json.getInt("totalResults");
-                JSONArray articles = json.getJSONArray("articles");
-                JSONObject article1 = articles.getJSONObject(0);
-                return article1.getString("title");
+                Gson gson = new Gson();
+                ArticleResponse responseData = gson.fromJson(responseString, ArticleResponse.class);
+                return responseData;
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
                 e.printStackTrace();
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(ArticleResponse result) {
 //            super.onPostExecute(result);
-            mTextView.setText(result);
+            mRecylerViewAdapter = new NewsArticleAdapter(MainActivity.this,result.getArticles());
+            mRecyclerView.setAdapter(mRecylerViewAdapter);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         }
 
         @Override

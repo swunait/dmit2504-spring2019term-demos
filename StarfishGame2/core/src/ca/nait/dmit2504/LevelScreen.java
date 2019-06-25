@@ -46,6 +46,15 @@ public class LevelScreen extends BaseScreen {
                     whirl.setOpacity(0.25f);
                 }
             }
+
+            if (BaseActor.count(mainStage, "ca.nait.dmit2504.Starfish") == 0 && !win) {
+                win = true;
+                BaseActor youWinMessage = new BaseActor(0,0, uiStage);
+                youWinMessage.loadTexture("you-win.png");
+                youWinMessage.setOpacity(0);
+                youWinMessage.addAction( Actions.delay(1) );
+                youWinMessage.addAction( Actions.after( Actions.fadeIn(1)));
+            }
         }
     }
 }
